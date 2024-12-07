@@ -7,9 +7,11 @@
 [![install size](https://flat.badgen.net/packagephobia/install/@substrate-system/magnet-uri)](https://packagephobia.com/result?p=@substrate-system/magnet-uri)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-## Parse a magnet URI and return an object of keys/values.
+## Parse a magnet URI, and return an object of keys/values.
 
-Also works in the browser with [browserify](http://browserify.org/)! This module is used by [WebTorrent](http://webtorrent.io).
+Also works in the browser.
+
+*now, with types*
 
 <details><summary><h2>Contents</h2></summary>
 
@@ -28,7 +30,7 @@ Also works in the browser with [browserify](http://browserify.org/)! This module
 
 ## install
 
-```
+```sh
 npm i -S @substrate-system/magnet-uri
 ```
 
@@ -36,8 +38,9 @@ npm i -S @substrate-system/magnet-uri
 
 Import like normal
 
-```js
+```ts
 import { encode, decode } from '@substrate-system/magnet-uri'
+import type { ParsedMagnet } from '@substrate-system/magnet-uri'
 ```
 
 ## API

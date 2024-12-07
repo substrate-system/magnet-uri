@@ -1,32 +1,35 @@
 /*! magnet-uri. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 import { parse, compose } from 'bep53-range'
 import { fromString, toString } from 'uint8arrays'
-import { decode } from './util.js'
+import { decode as uDecode } from './util.js'
 const hex2arr = (hex:string) => fromString(hex, 'hex')
 const arr2hex = (arr:Uint8Array) => toString(arr, 'hex')
 
-export type ParsedMagnet = {
-    'x.pe'?:string|string[];
-    xt?;
-    xs?:string[];
-    xl?:string;
-    dn?:string;
-    kt?:string[];
+/**
+ * @see {@link https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/magnet-uri/index.d.ts @types/magnet-uri}
+ */
+export interface ParsedMagnet {
+    dn?:string|string[];
+    tr?:string|string[];
+    xs?:string|string[];
     as?:string|string[];
     ws?:string|string[];
-    tr?:string[]|string;
+    kt?:string|string[];
+    ix?:number|number[];
+    xt?:string|string[];
     so?:number[];
-    ix?:number;
-    peerAddresses?:string[];
-    infoHash:string;
-    infoHashV2?:string;
+    xl?:string;
+    'x.pe'?:string[]|string;
     publicKey?:string;
-    name?:string;
-    keywords?:string[];
-    infoHashBuffer?:Uint8Array;
-    infoHashV2Buffer?:Uint8Array;
     publicKeyBuffer?:Uint8Array;
-    announce:string[];
+    peerAddresses?:string[];
+    infoHash?:string;
+    infoHashV2?:string;
+    infoHashBuffer?:ArrayBufferView;
+    infoHashV2Buffer?:Uint8Array;
+    name?:string|string[];
+    keywords?:string|string[];
+    announce?:string[];
     urlList?:string[];
 }
 
@@ -36,7 +39,7 @@ export type ParsedMagnet = {
  * @param  {string} uri
  * @return {Object} parsed uri
  */
-export function magnetURIDecode (uri:string):ParsedMagnet {
+export function decode (uri:string):ParsedMagnet {
     const result:Partial<ParsedMagnet> = {
         announce: [],
         urlList: [],
@@ -104,8 +107,7 @@ export function magnetURIDecode (uri:string):ParsedMagnet {
                 result.infoHash = m[1].toLowerCase()
             } else if ((m = xt.match(/^urn:btih:(.{32})/))) {
                 console.log('mmmmmmmm', m)
-                result.infoHash = arr2hex(decode(m[1]))
-                // result.infoHash = arr2hex(decode(m[1]))
+                result.infoHash = arr2hex(uDecode(m[1]))
             } else if ((m = xt.match(/^urn:btmh:1220(.{64})/))) {
                 result.infoHashV2 = m[1].toLowerCase()
             }
@@ -154,17 +156,22 @@ export function magnetURIDecode (uri:string):ParsedMagnet {
     return result as ParsedMagnet
 }
 
-export function magnetURIEncode (obj) {
+/**
+ * Take a torrent object, return a magnet URI.
+ * @param {ParsedMagnet} obj A torrent object
+ * @returns {string} A magnet URI
+ */
+export function encode (obj:ParsedMagnet) {
     obj = Object.assign({}, obj) // clone obj, so we can mutate it
 
     // support using convenience names, in addition to spec names
     // (example: `infoHash` for `xt`, `name` for `dn`)
 
     // Deduplicate xt by using a set
-    let xts = new Set()
+    let xts = new Set<string>()
     if (obj.xt && typeof obj.xt === 'string') xts.add(obj.xt)
     if (obj.xt && Array.isArray(obj.xt)) xts = new Set(obj.xt)
-    if (obj.infoHashBuffer) xts.add(`urn:btih:${arr2hex(obj.infoHashBuffer)}`)
+    if (obj.infoHashBuffer) xts.add(`urn:btih:${arr2hex(obj.infoHashBuffer as Uint8Array)}`)
     if (obj.infoHash) xts.add(`urn:btih:${obj.infoHash}`)
     if (obj.infoHashV2Buffer) xts.add(obj.xt = `urn:btmh:1220${arr2hex(obj.infoHashV2Buffer)}`)
     if (obj.infoHashV2) xts.add(`urn:btmh:1220${obj.infoHashV2}`)
@@ -211,5 +218,4 @@ export function magnetURIEncode (obj) {
     return result
 }
 
-export default magnetURIDecode
-export { magnetURIDecode as decode, magnetURIEncode as encode }
+export default { decode, encode }
