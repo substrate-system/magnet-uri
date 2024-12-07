@@ -1,26 +1,62 @@
 {
-  "name": "magnet-uri",
+  "name": "@substrate-system/magnet-uri",
   "description": "Parse a magnet URI and return an object of keys/values",
   "version": "7.0.5",
+  "type": "module",
+  "exports": {
+    "import": "./index.js"
+  },
+  "scripts": {
+    "lint": "eslint \"./**/*.{ts,js}\"",
+    "test": "esbuild ./test/index.ts --sourcemap --bundle > ./test/test.js && node ./test/test.js | tap-spec",
+    "build-cjs": "esbuild src/*.ts --format=cjs --keep-names --tsconfig=tsconfig.build.json --outdir=./dist --out-extension:.js=.cjs --sourcemap",
+    "build-cjs:min": "esbuild src/*.ts --format=cjs --minify --keep-names --tsconfig=tsconfig.build.json --outdir=./dist --out-extension:.js=.min.cjs --sourcemap",
+    "build-esm": "esbuild src/*.ts --format=esm --metafile=dist/meta.json --keep-names --tsconfig=tsconfig.build.json --outdir=./dist --sourcemap && tsc --emitDeclarationOnly --project tsconfig.build.json --outDir dist",
+    "build-esm:min": "esbuild ./src/*.ts --format=esm --keep-names --bundle --tsconfig=tsconfig.build.json --minify --out-extension:.js=.min.js --outdir=./dist --sourcemap",
+    "build-example": "mkdir -p ./public && rm -rf ./public/* && VITE_DEBUG_MODE=staging vite --mode staging --base=\"/repo-name\" build",
+    "build-docs": "typedoc ./src/index.ts",
+    "build": "mkdir -p ./dist && rm -rf ./dist/* && npm run build-cjs && npm run build-esm && npm run build-esm:min && npm run build-cjs:min",
+    "toc": "markdown-toc --maxdepth 3 -i README.md",
+    "preversion": "npm run lint",
+    "version": "npm run toc && auto-changelog -p --template keepachangelog --breaking-pattern 'BREAKING CHANGE:' && git add CHANGELOG.md README.md",
+    "postversion": "git push --follow-tags && npm publish",
+    "prepublishOnly": "npm run build"
+  },
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
     "url": "https://webtorrent.io"
   },
+  "contributors": [
+    {
+      "name": "Nick Thomas",
+      "email": "nichoth@nichoth.com",
+      "url": "https://nichoth.com/"
+    }
+  ],
   "bugs": {
-    "url": "https://github.com/webtorrent/magnet-uri/issues"
+    "url": "https://github.com/substrate-system/magnet-uri/issues"
   },
-  "type": "module",
   "dependencies": {
-    "@thaunknown/thirty-two": "^1.0.3",
     "bep53-range": "^2.0.0",
-    "uint8-util": "^2.1.9"
+    "uint8arrays": "^5.1.0"
   },
   "devDependencies": {
-    "@webtorrent/semantic-release-config": "1.0.10",
-    "semantic-release": "21.1.2",
-    "standard": "*",
-    "tape": "5.9.0"
+    "@substrate-system/debug": "^0.7.2",
+    "@substrate-system/tapzero": "^0.10.5",
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "auto-changelog": "^2.4.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "markdown-toc": "^1.2.0",
+    "postcss-nesting": "^13.0.0",
+    "tap-spec": "^5.0.0",
+    "tape-run": "^11.0.0",
+    "typedoc": "^0.27.0",
+    "typescript": "^5.7.2"
   },
   "funding": [
     {
@@ -47,26 +83,8 @@
     "webtorrent"
   ],
   "license": "MIT",
-  "engines": {
-    "node": ">=12.20.0"
-  },
-  "exports": {
-    "import": "./index.js"
-  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/webtorrent/magnet-uri.git"
-  },
-  "scripts": {
-    "test": "standard && tape test/*.js"
-  },
-  "renovate": {
-    "extends": [
-      "github>webtorrent/renovate-config"
-    ],
-    "rangeStrategy": "bump"
-  },
-  "release": {
-    "extends": "@webtorrent/semantic-release-config"
+    "url": "git://github.com/substrate-system/magnet-uri.git"
   }
 }

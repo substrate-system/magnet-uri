@@ -1,17 +1,19 @@
-# magnet-uri [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
+# magnet-uri
+![tests](https://github.com/substrate-system/magnet-uri/actions/workflows/nodejs.yml/badge.svg)
+[![types](https://img.shields.io/npm/types/@substrate-system/magnet-uri?style=flat-square)](README.md)
+[![module](https://img.shields.io/badge/module-ESM%2FCJS-blue?style=flat-square)](README.md)
+[![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
+[![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
+[![install size](https://flat.badgen.net/packagephobia/install/@substrate-system/magnet-uri)](https://packagephobia.com/result?p=@substrate-system/magnet-uri)
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-[ci-image]: https://img.shields.io/github/workflow/status/webtorrent/magnet-uri/ci/master
-[ci-url]: https://github.com/webtorrent/magnet-uri/actions
-[npm-image]: https://img.shields.io/npm/v/magnet-uri.svg
-[npm-url]: https://npmjs.org/package/magnet-uri
-[downloads-image]: https://img.shields.io/npm/dm/magnet-uri.svg
-[downloads-url]: https://npmjs.org/package/magnet-uri
-[standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[standard-url]: https://standardjs.com
-
-### Parse a magnet URI and return an object of keys/values.
+## Parse a magnet URI and return an object of keys/values.
 
 Also works in the browser with [browserify](http://browserify.org/)! This module is used by [WebTorrent](http://webtorrent.io).
+
+<details><summary><h2>Contents</h2></summary>
+<!-- toc -->
+</details>
 
 ## install
 
