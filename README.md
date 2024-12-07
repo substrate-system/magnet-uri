@@ -16,7 +16,8 @@ Also works in the browser with [browserify](http://browserify.org/)! This module
 <!-- toc -->
 
 - [install](#install)
-- [usage](#usage)
+- [Use](#use)
+- [API](#api)
   * [decode](#decode)
   * [encode](#encode)
 - [license](#license)
