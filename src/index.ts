@@ -36,7 +36,7 @@ export type ParsedMagnet = {
  * @param  {string} uri
  * @return {Object} parsed uri
  */
-function magnetURIDecode (uri:string):ParsedMagnet {
+export function magnetURIDecode (uri:string):ParsedMagnet {
     const result:Partial<ParsedMagnet> = {
         announce: [],
         urlList: [],
@@ -154,7 +154,7 @@ function magnetURIDecode (uri:string):ParsedMagnet {
     return result as ParsedMagnet
 }
 
-function magnetURIEncode (obj) {
+export function magnetURIEncode (obj) {
     obj = Object.assign({}, obj) // clone obj, so we can mutate it
 
     // support using convenience names, in addition to spec names

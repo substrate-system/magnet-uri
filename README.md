@@ -28,28 +28,36 @@ Also works in the browser with [browserify](http://browserify.org/)! This module
 ## install
 
 ```
-npm install magnet-uri
+npm i -S @substrate-system/magnet-uri
 ```
 
-## usage
+## Use
+
+Import like normal
+
+```js
+import { encode, decode } from '@substrate-system/magnet-uri'
+```
+
+## API
 
 ### decode
 
 Parse a magnet URI and return an object of keys/values.
 
 ```js
-import magnet from 'magnet-uri'
+import { decode } from '@substrate-system/magnet-uri'
 
 // "Leaves of Grass" by Walt Whitman
 const uri = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=udp%3A%2F%2Ftracker.example4.com%3A80&tr=udp%3A%2F%2Ftracker.example5.com%3A80&tr=udp%3A%2F%2Ftracker.example3.com%3A6969&tr=udp%3A%2F%2Ftracker.example2.com%3A80&tr=udp%3A%2F%2Ftracker.example1.com%3A1337'
 
-const parsed = magnet.decode(uri)
+const parsed = decode(uri)
 console.log(parsed.dn) // "Leaves of Grass by Walt Whitman.epub"
 console.log(parsed.infoHash) // "d2474e86c95b19b8bcfdb92bc12c9d44667cfa36"
 
 ```
 
-The `parsed` magnet link object looks like this:
+The parsed magnet link object looks like this:
 
 ```js
   {
@@ -82,9 +90,9 @@ The `parsed` magnet link object looks like this:
 Convert an object of key/values into a magnet URI string.
 
 ```js
-import magnet from 'magnet-uri'
+import { encode } from '@substrate-system/magnet-uri'
 
-const uri = magnet.encode({
+const uri = encode({
   xt: [
     'urn:ed2k:354B15E68FB8F36D7CD88FF94116CDC1',
     'urn:tree:tiger:7N5OAMRNGMSSEUE3ORHOKWN4WWIQ5X4EBOOTLJY',
