@@ -9,7 +9,7 @@ const arr2hex = (arr:Uint8Array) => toString(arr, 'hex')
  * @see {@link https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/magnet-uri/index.d.ts @types/magnet-uri}
  */
 export interface ParsedMagnet {
-    dn?:string|string[];
+    dn?:string;
     tr?:string|string[];
     xs?:string|string[];
     as?:string|string[];
@@ -27,7 +27,7 @@ export interface ParsedMagnet {
     infoHashV2?:string;
     infoHashBuffer?:ArrayBufferView;
     infoHashV2Buffer?:Uint8Array;
-    name?:string|string[];
+    name:string;
     keywords?:string|string[];
     announce?:string[];
     urlList?:string[];
@@ -39,7 +39,7 @@ export interface ParsedMagnet {
  * @param  {string} uri
  * @return {Object} parsed uri
  */
-export function decode (uri:string):ParsedMagnet {
+export function decode (uri:string):Partial<ParsedMagnet> {
     const result:Partial<ParsedMagnet> = {
         announce: [],
         urlList: [],
@@ -153,7 +153,7 @@ export function decode (uri:string):ParsedMagnet {
     result.urlList = Array.from(new Set(result.urlList))
     result.peerAddresses = Array.from(new Set(result.peerAddresses))
 
-    return result as ParsedMagnet
+    return result
 }
 
 /**
@@ -161,7 +161,7 @@ export function decode (uri:string):ParsedMagnet {
  * @param {ParsedMagnet} obj A torrent object
  * @returns {string} A magnet URI
  */
-export function encode (obj:ParsedMagnet) {
+export function encode (obj:Partial<ParsedMagnet>) {
     obj = Object.assign({}, obj) // clone obj, so we can mutate it
 
     // support using convenience names, in addition to spec names
