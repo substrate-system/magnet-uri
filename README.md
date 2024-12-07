@@ -12,7 +12,17 @@
 Also works in the browser with [browserify](http://browserify.org/)! This module is used by [WebTorrent](http://webtorrent.io).
 
 <details><summary><h2>Contents</h2></summary>
+
 <!-- toc -->
+
+- [install](#install)
+- [usage](#usage)
+  * [decode](#decode)
+  * [encode](#encode)
+- [license](#license)
+
+<!-- tocstop -->
+
 </details>
 
 ## install
