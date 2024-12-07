@@ -23,7 +23,7 @@ export interface ParsedMagnet {
     publicKey?:string;
     publicKeyBuffer?:Uint8Array;
     peerAddresses?:string[];
-    infoHash?:string;
+    infoHash:string;
     infoHashV2?:string;
     infoHashBuffer?:ArrayBufferView;
     infoHashV2Buffer?:Uint8Array;
