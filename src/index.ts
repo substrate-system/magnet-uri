@@ -18,7 +18,7 @@ export type ParsedMagnet = {
     so?:number[];
     ix?:number;
     peerAddresses?:string[];
-    infoHash?:string;
+    infoHash:string;
     infoHashV2?:string;
     publicKey?:string;
     name?:string;
