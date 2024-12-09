@@ -1,7 +1,7 @@
 {
   "name": "@substrate-system/magnet-uri",
   "description": "Parse a magnet URI and return an object of keys/values",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "type": "module",
   "exports": {
     ".": {
