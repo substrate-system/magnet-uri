@@ -37,9 +37,9 @@ export interface ParsedMagnet {
  * Parse a magnet URI and return an object of keys/values
  *
  * @param  {string} uri
- * @return {Object} parsed uri
+ * @return {ParsedMagnet} the parsed uri
  */
-export function decode (uri:string):Partial<ParsedMagnet> {
+export function decode (uri:string):ParsedMagnet {
     const result:Partial<ParsedMagnet> = {
         announce: [],
         urlList: [],
@@ -153,7 +153,7 @@ export function decode (uri:string):Partial<ParsedMagnet> {
     result.urlList = Array.from(new Set(result.urlList))
     result.peerAddresses = Array.from(new Set(result.peerAddresses))
 
-    return result
+    return result as ParsedMagnet
 }
 
 /**
